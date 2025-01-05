@@ -344,3 +344,6 @@ TSWLatexianTemp*
 #*Notes.bib
 
 *.pdf
+
+# VS Code
+.vscode/
