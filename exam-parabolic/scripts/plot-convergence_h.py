@@ -35,4 +35,4 @@ plt.xlabel("h")
 plt.ylabel("error")
 plt.legend()
 
-plt.savefig("convergence.pdf")
+plt.savefig("convergence_h.pdf")
