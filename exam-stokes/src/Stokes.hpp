@@ -49,17 +49,14 @@ public:
   public:
     // TODO: Implement forcing term.
     virtual void
-    vector_value(const Point<dim> & /*p*/,
-                 Vector<double> &values) const override
+    vector_value(const Point<dim> &p, Vector<double> &values) const override
     {
-      for (unsigned int i = 0; i < dim - 1; ++i)
-        values[i] = 0.0;
-
-      values[dim - 1] = -g;
+      for (unsigned int i = 0; i < dim; ++i)
+        values[i] = value(p, i);
     }
 
     virtual double
-    value(const Point<dim> & /*p*/,
+    value(const Point<dim> & /* p */,
           const unsigned int component = 0) const override
     {
       if (component == dim - 1)
@@ -79,19 +76,17 @@ public:
       : Function<dim>(dim + 1)
     {}
 
-    // TODO: Implement inlet velocity.
     virtual void
     vector_value(const Point<dim> &p, Vector<double> &values) const override
     {
-      values[0] = -alpha * p[1] * (2.0 - p[1]) * (1.0 - p[2]) * (2.0 - p[2]);
-
-      for (unsigned int i = 1; i < dim + 1; ++i)
-        values[i] = 0.0;
+      for (unsigned int i = 0; i < dim; ++i)
+        values[i] = value(p, i);
     }
 
     virtual double
     value(const Point<dim> &p, const unsigned int component = 0) const override
     {
+      // TODO: Implement inlet velocity.
       if (component == 0)
         return -alpha * p[1] * (2.0 - p[1]) * (1.0 - p[2]) * (2.0 - p[2]);
       else
@@ -112,8 +107,6 @@ public:
     {
       dst = src;
     }
-
-  protected:
   };
 
   // Block-diagonal preconditioner.

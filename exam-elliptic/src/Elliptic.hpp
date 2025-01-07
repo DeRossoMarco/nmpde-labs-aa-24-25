@@ -56,8 +56,8 @@ public:
 
     // Evaluation.
     virtual double
-    value(const Point<dim> &p,
-          const unsigned int /*component*/ = 0) const override
+    value(const Point<dim> &/* p */,
+          const unsigned int /* component */ = 0) const override
     {
       // TODO: Implement the diffusion coefficient.
       return 1.0;
@@ -74,8 +74,8 @@ public:
 
     // Evaluation.
     virtual double
-    value(const Point<dim> &p,
-          const unsigned int /*component*/ = 0) const override
+    value(const Point<dim> &/* p */,
+          const unsigned int /* component */ = 0) const override
     {
       // TODO: Implement the reaction coefficient.
       return 1.0;
@@ -95,15 +95,13 @@ public:
     vector_value(const Point<dim> &p,
           Vector<double> &values) const override
     {
-      // TODO: Implement the advection coefficient.
-      values[0] = 1.0;
-      values[1] = 0.0;
-      values[2] = 0.0;
+      for (unsigned int i = 0; i < dim; ++i)
+        values[i] = value(p, i);
     }
 
     virtual double
-    value(const Point<dim> &p,
-          const unsigned int component = 0) const override
+    value(const Point<dim> &/* p */,
+          const unsigned int /* component */ = 0) const override
     {
       // TODO: Implement the advection coefficient.
       if (component == 0)
@@ -125,8 +123,8 @@ public:
 
     // Evaluation.
     virtual double
-    value(const Point<dim> &p,
-          const unsigned int /*component*/ = 0) const override
+    value(const Point<dim> &/* p */,
+          const unsigned int /* component */ = 0) const override
     {
       // TODO: Implement the forcing term.
       return 1.0;
@@ -143,8 +141,8 @@ public:
 
     // Evaluation.
     virtual double
-    value(const Point<dim> &p,
-          const unsigned int /*component*/ = 0) const override
+    value(const Point<dim> &/* p */,
+          const unsigned int /* component */ = 0) const override
     {
       // TODO: Implement the Dirichlet boundary conditions.
       return 0.0;
@@ -161,8 +159,8 @@ public:
 
     // Evaluation.
     virtual double
-    value(const Point<dim> &p,
-          const unsigned int /*component*/ = 0) const override
+    value(const Point<dim> &/* p */,
+          const unsigned int /* component */ = 0) const override
     {
       // TODO: Implement the Neumann boundary conditions.
       return 0.0;
@@ -179,8 +177,8 @@ public:
 
     // Evaluation.
     virtual double
-    value(const Point<dim> &p,
-          const unsigned int /*component*/ = 0) const override
+    value(const Point<dim> &/* p */,
+          const unsigned int /* component */ = 0) const override
     {
       // TODO: Implement the exact solution.
       return 0.0;
@@ -188,8 +186,8 @@ public:
 
     // Gradient evaluation.
     virtual Tensor<1, dim>
-    gradient(const Point<dim> &p,
-             const unsigned int /*component*/ = 0) const override
+    gradient(const Point<dim> &/* p */,
+             const unsigned int /* component */ = 0) const override
     {
       Tensor<1, dim> result;
 

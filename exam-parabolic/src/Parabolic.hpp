@@ -96,10 +96,8 @@ public:
     virtual void
     vector_value(const Point<dim> &p, Vector<double> &values) const override
     {
-      // TODO: Implement the beta coefficient.
-      values[0] = 0.0;
-      values[1] = 0.0;
-      values[2] = 0.0;
+      for (unsigned int i = 0; i < dim; ++i)
+        values[i] = value(p, i);
     }
 
     virtual double
