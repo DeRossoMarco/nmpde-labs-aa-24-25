@@ -323,8 +323,11 @@ Parabolic::output(const unsigned int &time_step) const
 
   data_out.build_patches();
 
+  const std::filesystem::path mesh_path(mesh_file_name);
+  const std::string output_file_name = "output-" + mesh_path.stem().string();
+
   data_out.write_vtu_with_pvtu_record(
-    "./", "output", time_step, MPI_COMM_WORLD, 3);
+    "./", output_file_name, time_step, MPI_COMM_WORLD, 3);
 }
 
 void
