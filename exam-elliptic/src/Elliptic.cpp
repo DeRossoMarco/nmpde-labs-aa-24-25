@@ -155,7 +155,7 @@ Elliptic::assemble()
             {
               for (unsigned int j = 0; j < dofs_per_cell; ++j)
                 {
-                  // TODO 8: Implement the assembly of the linear system.
+                  // TODO: Implement the assembly of the linear system.
 
                   // Diffusion term.
                   cell_matrix(i, j) +=
@@ -188,7 +188,7 @@ Elliptic::assemble()
           for (unsigned int face_number = 0; face_number < cell->n_faces();
                ++face_number)
             {
-              // TODO 9: Fix boundary indexes.
+              // TODO: Fix boundary indexes.
               if (cell->face(face_number)->at_boundary() &&
                   (cell->face(face_number)->boundary_id() == 4 ||
                    cell->face(face_number)->boundary_id() == 5))
@@ -200,7 +200,7 @@ Elliptic::assemble()
                       const double h_loc = function_h.value(
                         fe_values_boundary.quadrature_point(q));
 
-                      // TODO 10: Fix boundary integral.
+                      // TODO: Fix boundary integral.
                       for (unsigned int i = 0; i < dofs_per_cell; ++i)
                         cell_rhs(i) +=
                           h_loc *                                // h(xq)
@@ -226,7 +226,7 @@ Elliptic::assemble()
 
     std::map<types::boundary_id, const Function<dim> *> boundary_functions;
 
-    // TODO 10: Fix the boundary indexes.
+    // TODO: Fix the boundary indexes.
     for (unsigned int i = 0; i < 4; ++i)
       boundary_functions[i] = &function_g;
 

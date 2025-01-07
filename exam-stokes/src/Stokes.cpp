@@ -236,7 +236,7 @@ Stokes::assemble()
         {
           for (unsigned int f = 0; f < cell->n_faces(); ++f)
             {
-              // TODO 3: Fix Neumann BCs.
+              // TODO: Fix Neumann BCs.
               if (cell->face(f)->at_boundary() &&
                   cell->face(f)->boundary_id() == 2)
                 {
@@ -274,13 +274,13 @@ Stokes::assemble()
     std::map<types::global_dof_index, double>           boundary_values;
     std::map<types::boundary_id, const Function<dim> *> boundary_functions;
 
-    // TODO 4: Fix Dirichlet BCs.
+    // TODO: Fix Dirichlet BCs.
     boundary_functions[0] = &inlet_velocity;
     VectorTools::interpolate_boundary_values(
       dof_handler,
       boundary_functions,
       boundary_values,
-      ComponentMask({true, true, true, false})); // TODO 5: Fix mask dimension.
+      ComponentMask({true, true, true, false})); // TODO: Fix mask dimension.
 
     boundary_functions.clear();
     Functions::ZeroFunction<dim> zero_function(dim + 1);
@@ -289,7 +289,7 @@ Stokes::assemble()
       dof_handler,
       boundary_functions,
       boundary_values,
-      ComponentMask({true, true, true, false})); // TODO 5: Fix mask dimension.
+      ComponentMask({true, true, true, false})); // TODO: Fix mask dimension.
 
     MatrixTools::apply_boundary_values(
       boundary_values, system_matrix, solution_owned, system_rhs, false);
@@ -334,7 +334,7 @@ Stokes::output()
       dim, DataComponentInterpretation::component_is_part_of_vector);
   data_component_interpretation.push_back(
     DataComponentInterpretation::component_is_scalar);
-  // TODO 5: Fix dimension of the simulation.
+  // TODO: Fix dimension of the simulation.
   std::vector<std::string> names = {"velocity",
                                     "velocity",
                                     "velocity",

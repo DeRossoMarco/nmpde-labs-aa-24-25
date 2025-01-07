@@ -59,7 +59,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 1: Implement the diffusion coefficient.
+      // TODO: Implement the diffusion coefficient.
       return 1.0;
     }
   };
@@ -77,7 +77,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 2: Implement the reaction coefficient.
+      // TODO: Implement the reaction coefficient.
       return 1.0;
     }
   };
@@ -95,7 +95,7 @@ public:
     vector_value(const Point<dim> &p,
           Vector<double> &values) const override
     {
-      // TODO 3: Implement the advection coefficient.
+      // TODO: Implement the advection coefficient.
       values[0] = 1.0;
       values[1] = 0.0;
       values[2] = 0.0;
@@ -105,7 +105,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int component = 0) const override
     {
-      // TODO 3: Implement the advection coefficient.
+      // TODO: Implement the advection coefficient.
       if (component == 0)
         return 1.0;
       else if (component == 1)
@@ -128,7 +128,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 4: Implement the forcing term.
+      // TODO: Implement the forcing term.
       return 1.0;
     }
   };
@@ -146,7 +146,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 5: Implement the Dirichlet boundary conditions.
+      // TODO: Implement the Dirichlet boundary conditions.
       return 0.0;
     }
   };
@@ -164,7 +164,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 6: Implement the Neumann boundary conditions.
+      // TODO: Implement the Neumann boundary conditions.
       return 0.0;
     }
   };
@@ -182,7 +182,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 7: Implement the exact solution.
+      // TODO: Implement the exact solution.
       return 0.0;
     }
 
@@ -193,7 +193,7 @@ public:
     {
       Tensor<1, dim> result;
 
-      // TODO 7: Implement the gradient of the exact solution.
+      // TODO: Implement the gradient of the exact solution.
       result[0] = 0.0;
       result[1] = 0.0;
       result[2] = 0.0;

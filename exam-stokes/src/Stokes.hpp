@@ -39,7 +39,7 @@ using namespace dealii;
 class Stokes
 {
 public:
-  // TODO 5: Fix dimension of the simulation.
+  // TODO: Fix dimension of the simulation.
   // Physical dimension (1D, 2D, 3D)
   static constexpr unsigned int dim = 3;
 
@@ -47,7 +47,7 @@ public:
   class ForcingTerm : public Function<dim>
   {
   public:
-    // TODO 1: Implement forcing term.
+    // TODO: Implement forcing term.
     virtual void
     vector_value(const Point<dim> & /*p*/,
                  Vector<double> &values) const override
@@ -79,7 +79,7 @@ public:
       : Function<dim>(dim + 1)
     {}
 
-    // TODO 2: Implement inlet velocity.
+    // TODO: Implement inlet velocity.
     virtual void
     vector_value(const Point<dim> &p, Vector<double> &values) const override
     {

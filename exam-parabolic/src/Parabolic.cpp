@@ -144,7 +144,7 @@ Parabolic::assemble_matrices()
             {
               for (unsigned int j = 0; j < dofs_per_cell; ++j)
                 {
-                  // TODO 9: Implement the assembly of the linear system.
+                  // TODO: Implement the assembly of the linear system.
 
                   cell_mass_matrix(i, j) += fe_values.shape_value(i, q) *
                                             fe_values.shape_value(j, q) /
@@ -240,7 +240,7 @@ Parabolic::assemble_rhs(const double &time)
           for (unsigned int face_number = 0; face_number < cell->n_faces();
                ++face_number)
             {
-              // TODO 10: Fix boundary indexes.
+              // TODO: Fix boundary indexes.
               if (cell->face(face_number)->at_boundary() &&
                   (cell->face(face_number)->boundary_id() == 1 ||
                    cell->face(face_number)->boundary_id() == 2 ||
@@ -255,7 +255,7 @@ Parabolic::assemble_rhs(const double &time)
                       const double h_loc = function_h.value(
                         fe_values_boundary.quadrature_point(q));
 
-                      // TODO 11: Fix boundary integral.
+                      // TODO: Fix boundary integral.
                       for (unsigned int i = 0; i < dofs_per_cell; ++i)
                         cell_rhs(i) += h_loc *
                                        fe_values_boundary.shape_value(i, q) *
@@ -281,7 +281,7 @@ Parabolic::assemble_rhs(const double &time)
 
     std::map<types::boundary_id, const Function<dim> *> boundary_functions;
 
-    // TODO 11: Fix the boundary indexes.
+    // TODO: Fix the boundary indexes.
     for (unsigned int i = 0; i < 1; ++i)
       boundary_functions[i] = &function_g;
 

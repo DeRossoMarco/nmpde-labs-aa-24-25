@@ -61,7 +61,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 1: Implement the mu coefficient.
+      // TODO: Implement the mu coefficient.
       return 0.1;
     }
   };
@@ -79,7 +79,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 2: Implement the sigma coefficient.
+      // TODO: Implement the sigma coefficient.
       return 0.0;
     }
   };
@@ -96,7 +96,7 @@ public:
     virtual void
     vector_value(const Point<dim> &p, Vector<double> &values) const override
     {
-      // TODO 3: Implement the beta coefficient.
+      // TODO: Implement the beta coefficient.
       values[0] = 0.0;
       values[1] = 0.0;
       values[2] = 0.0;
@@ -105,7 +105,7 @@ public:
     virtual double
     value(const Point<dim> &p, const unsigned int component = 0) const override
     {
-      // TODO 3: Implement the beta coefficient.
+      // TODO: Implement the beta coefficient.
       if (component == 0)
         return 0.0;
       else if (component == 1)
@@ -128,7 +128,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 4: Implement the forcing term.
+      // TODO: Implement the forcing term.
       // get_time() to retrieve the current time.
       return 0.0;
     }
@@ -147,7 +147,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 5: Implement the Dirichlet boundary conditions.
+      // TODO: Implement the Dirichlet boundary conditions.
       return 0.0;
     }
   };
@@ -165,7 +165,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 6: Implement the Neumann boundary conditions.
+      // TODO: Implement the Neumann boundary conditions.
       return 0.0;
     }
   };
@@ -183,7 +183,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 7: Implement the initial condition.
+      // TODO: Implement the initial condition.
       return p[0] * (1 - p[0]) * p[1] * (1 - p[1]) * p[2] * (1 - p[2]);
     }
   };
@@ -201,7 +201,7 @@ public:
     value(const Point<dim> &p,
           const unsigned int /*component*/ = 0) const override
     {
-      // TODO 8: Implement the exact solution.
+      // TODO: Implement the exact solution.
       return 0.0;
     }
 
@@ -212,7 +212,7 @@ public:
     {
       Tensor<1, dim> result;
 
-      // TODO 8: Implement the gradient of the exact solution.
+      // TODO: Implement the gradient of the exact solution.
       result[0] = 0.0;
       result[1] = 0.0;
       result[2] = 0.0;
