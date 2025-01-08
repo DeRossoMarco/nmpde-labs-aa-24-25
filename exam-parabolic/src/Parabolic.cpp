@@ -343,18 +343,14 @@ Parabolic::output(const unsigned int &time_step) const
 
   data_out.build_patches();
 
-  std::string output_file_name;
+  std::string                 output_file_name;
+  const std::filesystem::path mesh_path(mesh_file_name);
   if (N == 0)
-    {
-      const std::filesystem::path mesh_path(mesh_file_name);
-      output_file_name =
-        "output-" + mesh_path.stem().string() + "_" + std::to_string(deltat);
-    }
+    output_file_name =
+      "output-" + mesh_path.stem().string() + "_" + std::to_string(deltat);
   else
-    {
-      output_file_name =
-        "output-mesh-" + std::to_string(N + 1) + "_" + std::to_string(deltat);
-    }
+    output_file_name =
+      "output-mesh-" + std::to_string(N + 1) + "_" + std::to_string(deltat);
 
   data_out.write_vtu_with_pvtu_record(
     "./", output_file_name, time_step, MPI_COMM_WORLD, 3);

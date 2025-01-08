@@ -32,7 +32,6 @@ Elliptic::setup()
         pcout << "  Mesh saved to " << mesh_file_name << std::endl;
       }
 
-
     {
       GridTools::partition_triangulation(mpi_size, mesh_serial);
       const auto construction_data = TriangulationDescription::Utilities::
@@ -300,8 +299,12 @@ Elliptic::output() const
 
   data_out.build_patches();
 
+  std::string                 output_file_name;
   const std::filesystem::path mesh_path(mesh_file_name);
-  const std::string output_file_name = "output-" + mesh_path.stem().string();
+  if (N == 0)
+    output_file_name = "output-" + mesh_path.stem().string();
+  else
+    output_file_name = "output-mesh-" + std::to_string(N + 1);
 
   data_out.write_vtu_with_pvtu_record("./",
                                       output_file_name,
