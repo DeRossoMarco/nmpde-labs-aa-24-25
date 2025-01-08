@@ -14,14 +14,14 @@ main(int argc, char *argv[])
   const unsigned int               mpi_rank =
     Utilities::MPI::this_mpi_process(MPI_COMM_WORLD);
 
-  const std::vector<std::string>  meshes = {"../mesh/mesh-cube-5.msh",
-                                            "../mesh/mesh-cube-10.msh",
-                                            "../mesh/mesh-cube-20.msh",
-                                            "../mesh/mesh-cube-40.msh"};
+  const std::vector<std::string> meshes = {"../mesh/mesh-cube-5.msh",
+                                           "../mesh/mesh-cube-10.msh",
+                                           "../mesh/mesh-cube-20.msh",
+                                           "../mesh/mesh-cube-40.msh"};
   const std::vector<double>      h_vals = {1.0 / 5.0,
                                            1.0 / 10.0,
-                                            1.0 / 20.0,
-                                            1.0 / 40.0};
+                                           1.0 / 20.0,
+                                           1.0 / 40.0};
 
   // For 1 dimension problem, must update h_vals (h = 1.0 / (N + 1.0))
   const std::vector<unsigned int> N_vals = {9, 19, 39, 79};
