@@ -10,6 +10,7 @@ Elliptic::setup()
     pcout << "Initializing the mesh" << std::endl;
 
     Triangulation<dim> mesh_serial;
+
     if (N == 0)
       {
         GridIn<dim> grid_in;
@@ -23,9 +24,10 @@ Elliptic::setup()
         GridGenerator::subdivided_hyper_cube(
           mesh_serial, N + 1, 0.0, 1.0, true);
 
-        const std::string mesh_file_name = "mesh-" + std::to_string(N + 1) + ".vtk";
-        GridOut           grid_out;
-        std::ofstream     grid_out_file(mesh_file_name);
+        const std::string mesh_file_name =
+          "mesh-" + std::to_string(N + 1) + ".vtk";
+        GridOut       grid_out;
+        std::ofstream grid_out_file(mesh_file_name);
         grid_out.write_vtk(mesh_serial, grid_out_file);
         pcout << "  Mesh saved to " << mesh_file_name << std::endl;
       }
