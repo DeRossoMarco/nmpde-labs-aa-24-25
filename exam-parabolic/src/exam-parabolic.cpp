@@ -6,6 +6,9 @@
 
 #include "Parabolic.hpp"
 
+#define TIME_CONVERGENCE
+#define SPATIAL_CONVERGENCE
+
 // Main function.
 int
 main(int argc, char *argv[])
@@ -19,6 +22,7 @@ main(int argc, char *argv[])
   const double T     = 1.0;
   const double theta = 0.5;
 
+#ifdef TIME_CONVERGENCE
   // Time convergence study.
   const std::vector<double> deltat_vector = {
     0.25, 0.125, 0.0625, 0.03125, 0.015625};
@@ -35,7 +39,9 @@ main(int argc, char *argv[])
       errors_L2_deltat.push_back(problem.compute_error(VectorTools::L2_norm));
       errors_H1_deltat.push_back(problem.compute_error(VectorTools::H1_norm));
     }
+#endif
 
+#ifdef SPATIAL_CONVERGENCE
   // Spatial convergence study.
   const std::vector<std::string> meshes = {"../mesh/mesh-cube-5.msh",
                                            "../mesh/mesh-cube-10.msh",
@@ -45,8 +51,12 @@ main(int argc, char *argv[])
                                            1.0 / 10.0,
                                            1.0 / 20.0,
                                            1.0 / 40.0};
-  std::vector<double>            errors_L2_h;
-  std::vector<double>            errors_H1_h;
+
+  // For 1 dimension problem, must update h_vals (h = 1.0 / (N + 1.0))
+  const std::vector<unsigned int> N_vals = {9, 19, 39, 79};
+
+  std::vector<double> errors_L2_h;
+  std::vector<double> errors_H1_h;
 
   for (unsigned int i = 0; i < meshes.size(); ++i)
     {
@@ -58,7 +68,9 @@ main(int argc, char *argv[])
       errors_L2_h.push_back(problem.compute_error(VectorTools::L2_norm));
       errors_H1_h.push_back(problem.compute_error(VectorTools::H1_norm));
     }
+#endif
 
+#ifdef TIME_CONVERGENCE
   if (mpi_rank == 0)
     {
       std::cout << "==============================================="
@@ -109,7 +121,9 @@ main(int argc, char *argv[])
           std::cout << "\n";
         }
     }
+#endif
 
+#ifdef SPATIAL_CONVERGENCE
   if (mpi_rank == 0)
     {
       ConvergenceTable table;
@@ -132,6 +146,7 @@ main(int argc, char *argv[])
       table.set_scientific("H1", true);
       table.write_text(std::cout);
     }
+#endif
 
   return 0;
 }

@@ -225,12 +225,14 @@ public:
             const unsigned int &r_,
             const double       &T_,
             const double       &deltat_,
-            const double       &theta_)
+            const double       &theta_,
+            const unsigned int &N_ = 0)
     : mpi_size(Utilities::MPI::n_mpi_processes(MPI_COMM_WORLD))
     , mpi_rank(Utilities::MPI::this_mpi_process(MPI_COMM_WORLD))
     , pcout(std::cout, mpi_rank == 0)
     , T(T_)
     , mesh_file_name(mesh_file_name_)
+    , N(N_)
     , r(r_)
     , deltat(deltat_)
     , theta(theta_)
@@ -313,6 +315,9 @@ protected:
 
   // Mesh file name.
   const std::string mesh_file_name;
+
+  // Number of elements in the x direction.
+  const unsigned int N;
 
   // Plynomial degree.
   const unsigned int r;

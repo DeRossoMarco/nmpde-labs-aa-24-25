@@ -11,13 +11,26 @@ Parabolic::setup()
 
     Triangulation<dim> mesh_serial;
 
-    {
-      GridIn<dim> grid_in;
-      grid_in.attach_triangulation(mesh_serial);
+    if (N == 0)
+      {
+        GridIn<dim> grid_in;
+        grid_in.attach_triangulation(mesh_serial);
 
-      std::ifstream grid_in_file(mesh_file_name);
-      grid_in.read_msh(grid_in_file);
-    }
+        std::ifstream grid_in_file(mesh_file_name);
+        grid_in.read_msh(grid_in_file);
+      }
+    else
+      {
+        GridGenerator::subdivided_hyper_cube(
+          mesh_serial, N + 1, 0.0, 1.0, true);
+
+        const std::string mesh_file_name =
+          "mesh-" + std::to_string(N + 1) + ".vtk";
+        GridOut       grid_out;
+        std::ofstream grid_out_file(mesh_file_name);
+        grid_out.write_vtk(mesh_serial, grid_out_file);
+        pcout << "  Mesh saved to " << mesh_file_name << std::endl;
+      }
 
     {
       GridTools::partition_triangulation(mpi_size, mesh_serial);
@@ -300,11 +313,18 @@ Parabolic::solve_time_step()
   SolverControl solver_control(10000, 1e-6 * system_rhs.l2_norm());
 
   SolverCG<TrilinosWrappers::MPI::Vector> solver(solver_control);
-  TrilinosWrappers::PreconditionSSOR      preconditioner;
+
+  TrilinosWrappers::PreconditionSSOR preconditioner;
   preconditioner.initialize(
     lhs_matrix, TrilinosWrappers::PreconditionSSOR::AdditionalData(1.0));
 
-  solver.solve(lhs_matrix, solution_owned, system_rhs, preconditioner);
+  if (N == 0)
+    solver.solve(lhs_matrix, solution_owned, system_rhs, preconditioner);
+  else
+    solver.solve(lhs_matrix,
+                 solution_owned,
+                 system_rhs,
+                 PreconditionIdentity());
   pcout << "  " << solver_control.last_step() << " iterations" << std::endl;
 
   solution = solution_owned;
@@ -323,9 +343,18 @@ Parabolic::output(const unsigned int &time_step) const
 
   data_out.build_patches();
 
-  const std::filesystem::path mesh_path(mesh_file_name);
-  const std::string           output_file_name =
-    "output-" + mesh_path.stem().string() + "_" + std::to_string(deltat);
+  std::string output_file_name;
+  if (N == 0)
+    {
+      const std::filesystem::path mesh_path(mesh_file_name);
+      output_file_name =
+        "output-" + mesh_path.stem().string() + "_" + std::to_string(deltat);
+    }
+  else
+    {
+      output_file_name =
+        "output-mesh-" + std::to_string(N + 1) + "_" + std::to_string(deltat);
+    }
 
   data_out.write_vtu_with_pvtu_record(
     "./", output_file_name, time_step, MPI_COMM_WORLD, 3);
