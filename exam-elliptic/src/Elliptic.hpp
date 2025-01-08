@@ -200,8 +200,11 @@ public:
   };
 
   // Constructor.
-  Elliptic(const std::string &mesh_file_name_, const unsigned int &r_)
+  Elliptic(const std::string  &mesh_file_name_,
+           const unsigned int &r_,
+           const unsigned int &N_ = 0)
     : mesh_file_name(mesh_file_name_)
+    , N(N_)
     , r(r_)
     , mpi_size(Utilities::MPI::n_mpi_processes(MPI_COMM_WORLD))
     , mpi_rank(Utilities::MPI::this_mpi_process(MPI_COMM_WORLD))
@@ -232,6 +235,9 @@ public:
 protected:
   // Path to the mesh file.
   const std::string mesh_file_name;
+
+  // N+1 is the number of elements in the x direction.
+  const unsigned int N;
 
   // Polynomial degree.
   const unsigned int r;

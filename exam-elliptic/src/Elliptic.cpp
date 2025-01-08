@@ -10,14 +10,26 @@ Elliptic::setup()
     pcout << "Initializing the mesh" << std::endl;
 
     Triangulation<dim> mesh_serial;
+    if (N == 0)
+      {
+        GridIn<dim> grid_in;
+        grid_in.attach_triangulation(mesh_serial);
 
-    {
-      GridIn<dim> grid_in;
-      grid_in.attach_triangulation(mesh_serial);
+        std::ifstream grid_in_file(mesh_file_name);
+        grid_in.read_msh(grid_in_file);
+      }
+    else
+      {
+        GridGenerator::subdivided_hyper_cube(
+          mesh_serial, N + 1, 0.0, 1.0, true);
 
-      std::ifstream grid_in_file(mesh_file_name);
-      grid_in.read_msh(grid_in_file);
-    }
+        const std::string mesh_file_name = "mesh-" + std::to_string(N + 1) + ".vtk";
+        GridOut           grid_out;
+        std::ofstream     grid_out_file(mesh_file_name);
+        grid_out.write_vtk(mesh_serial, grid_out_file);
+        pcout << "  Mesh saved to " << mesh_file_name << std::endl;
+      }
+
 
     {
       GridTools::partition_triangulation(mpi_size, mesh_serial);
@@ -253,7 +265,10 @@ Elliptic::solve()
     system_matrix, TrilinosWrappers::PreconditionSSOR::AdditionalData(1.0));
 
   pcout << "  Solving the linear system" << std::endl;
-  solver.solve(system_matrix, solution, system_rhs, preconditioner);
+  if (N == 0)
+    solver.solve(system_matrix, solution, system_rhs, preconditioner);
+  else
+    solver.solve(system_matrix, solution, system_rhs, PreconditionIdentity());
   pcout << "  " << solver_control.last_step() << " iterations" << std::endl;
 }
 
