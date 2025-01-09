@@ -312,7 +312,7 @@ Parabolic::solve_time_step()
 {
   SolverControl solver_control(10000, 1e-6 * system_rhs.l2_norm());
 
-  SolverCG<TrilinosWrappers::MPI::Vector> solver(solver_control);
+  SolverGMRES<TrilinosWrappers::MPI::Vector> solver(solver_control);
 
   TrilinosWrappers::PreconditionSSOR preconditioner;
   preconditioner.initialize(
