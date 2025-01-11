@@ -271,9 +271,11 @@ protected:
   // Problem definition. ///////////////////////////////////////////////////////
 
   // Kinematic viscosity [m2/s].
+  // TODO: Set kinematic viscosity.
   const double nu = 1;
 
   // Outlet pressure [Pa].
+  // TODO: Set outlet pressure.
   const double p_out = 10;
 
   // Forcing term.
